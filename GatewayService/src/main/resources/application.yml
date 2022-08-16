@@ -1,0 +1,23 @@
+server:
+  port: 9091
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8089/eureka
+      
+
+spring:
+  application:
+    name: gatewayService
+  cloud:
+    gateway:
+      routes:
+      - id: employeeModule
+        uri: lb://EMPSERVICE
+        predicates:
+        - Path=/employee/**
+      - id: addressModule
+        uri: lb://ADDSERVICE
+        predicates:
+        - Path=/address/**
